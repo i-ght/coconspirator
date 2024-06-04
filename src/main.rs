@@ -1,3 +1,4 @@
+use std::env;
 use std::io::{self, LineWriter, Write};
 use std::fs::{File, OpenOptions};
 
@@ -50,7 +51,14 @@ fn append_adoc_list_item(
 }
 
 fn main() -> io::Result<()> {
-    
+    let argv: Vec<String> = env::args().collect();
+    if argv.len() <= 1 {
+        return Err(
+            io::Error::new(io::ErrorKind::Other, "specify file name in first arg")
+        );
+    }
+
+
     let mut adoc = open_adoc()?;
 
     loop {

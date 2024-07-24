@@ -59,7 +59,6 @@ fn main() -> io::Result<()> {
         );
     }
 
-
     let mut adoc = open_adoc(&argv[1])?;
 
     loop {

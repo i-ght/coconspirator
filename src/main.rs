@@ -1,3 +1,4 @@
+use std::env;
 use std::io::{self, LineWriter, Write};
 use std::fs::{File, OpenOptions};
 
@@ -21,11 +22,11 @@ fn get_user_input() -> io::Result<Vec<String>> {
     return Ok(user_input)
 }
 
-fn open_adoc() -> io::Result<LineWriter<File>> {
+fn open_adoc(path: &str) -> io::Result<LineWriter<File>> {
     let file = OpenOptions::new()
         .write(true)
         .append(true)
-        .open("x.adoc")?;
+        .open(path)?;
 
     Ok(LineWriter::new(file))
 }
@@ -38,7 +39,8 @@ fn append_adoc_list_item(
         .replace("‘", "'")
         .replace("’", "'")
         .replace("“", "\"")
-        .replace("”", "\"");
+        .replace("”", "\"")
+        .replace("  ", " ");
 
     file.write_all(b"\n")?;
     file.write_all(b"* ")?;
@@ -50,8 +52,15 @@ fn append_adoc_list_item(
 }
 
 fn main() -> io::Result<()> {
-    
-    let mut adoc = open_adoc()?;
+    let argv: Vec<String> = env::args().collect();
+    if argv.len() <= 1 {
+        return Err(
+            io::Error::new(io::ErrorKind::Other, "specify file name in first arg")
+        );
+    }
+
+
+    let mut adoc = open_adoc(&argv[1])?;
 
     loop {
         let user_input = get_user_input()?;

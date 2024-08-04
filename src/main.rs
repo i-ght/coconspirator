@@ -69,6 +69,7 @@ fn main() -> io::Result<()> {
             continue;
         }
 
-        csv_writer.write_record(&[trimmed])?;
+        let adoc_list_unit = format!("* {}", trimmed);
+        csv_writer.write_record(&[adoc_list_unit])?;
     }
 }

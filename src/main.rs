@@ -22,7 +22,7 @@ fn get_user_input() -> io::Result<Vec<String>> {
     return Ok(user_input)
 }
 
-fn open_adoc(path: &str) -> io::Result<LineWriter<File>> {
+/* fn open_adoc(path: &str) -> io::Result<LineWriter<File>> {
     let file = OpenOptions::new()
         .write(true)
         .append(true)
@@ -30,8 +30,8 @@ fn open_adoc(path: &str) -> io::Result<LineWriter<File>> {
 
     Ok(LineWriter::new(file))
 }
-
-fn append_adoc_list_item(
+ */
+/* fn append_adoc_list_item(
     file: &mut LineWriter<File>,
     contents: &str) -> io::Result<()> {
 
@@ -49,6 +49,10 @@ fn append_adoc_list_item(
     
 
     Ok(())
+} */
+
+fn append_record() {
+
 }
 
 fn main() -> io::Result<()> {
@@ -59,7 +63,7 @@ fn main() -> io::Result<()> {
         );
     }
 
-    let mut adoc = open_adoc(&argv[1])?;
+    let mut csv_writer = csv::Writer::from_path(&argv[1])?;
 
     loop {
         let user_input = get_user_input()?;
@@ -70,9 +74,6 @@ fn main() -> io::Result<()> {
             continue;
         }
 
-        append_adoc_list_item(
-            &mut adoc,
-            trimmed
-        )?;
+        csv_writer.write_record(&[trimmed])?;
     }
 }

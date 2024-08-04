@@ -1,6 +1,5 @@
 use std::env;
-use std::io::{self, LineWriter, Write};
-use std::fs::{File, OpenOptions};
+use std::io::{self};
 
 fn get_user_input() -> io::Result<Vec<String>> {
     let mut user_input = Vec::with_capacity(64);
@@ -50,10 +49,6 @@ fn get_user_input() -> io::Result<Vec<String>> {
 
     Ok(())
 } */
-
-fn append_record() {
-
-}
 
 fn main() -> io::Result<()> {
     let argv: Vec<String> = env::args().collect();

@@ -8,6 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug executable 'coconspirator'",
+            "terminal": "external",
             "cargo": {
                 "args": [
                     "build",
@@ -19,7 +20,7 @@
                     "kind": "bin"
                 }
             },
-            "args": [],
+            "args": ["/home/coyote/Code/coconspirator/codex.adoc"],
             "cwd": "${workspaceFolder}"
         },
         {

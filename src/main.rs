@@ -1,4 +1,5 @@
 use std::env;
+use std::fs::OpenOptions;
 use std::io::{self};
 
 fn get_user_input() -> io::Result<Vec<String>> {
@@ -58,7 +59,13 @@ fn main() -> io::Result<()> {
         );
     }
 
-    let mut csv_writer = csv::Writer::from_path(&argv[1])?;
+    let file = OpenOptions::new()
+        .write(true)
+        .append(true)
+        .open(&argv[1])?;
+    let writer = io::BufWriter::new(file);
+
+    let mut csv_writer = csv::Writer::from_writer(writer);
 
     loop {
         let user_input = get_user_input()?;
